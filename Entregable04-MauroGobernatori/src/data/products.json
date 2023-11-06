@@ -1,0 +1,1 @@
+[{"id":1,"status":true,"title":"Telefono","description":"Es un teléfono","code":"AAA000","price":125,"stock":25,"category":"Celulares"},{"id":2,"title":"Teclado","description":"Es un teclado","code":"AAA001","price":500,"stock":175,"category":"Teclados"}]

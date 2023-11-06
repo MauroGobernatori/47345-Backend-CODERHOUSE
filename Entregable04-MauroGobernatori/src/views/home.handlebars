@@ -1,0 +1,28 @@
+<h3>Products List</h3>
+
+{{#if products.length}}
+<div class="container">
+    <div class="table">
+        <div class="table-header">
+            <div class="header__item">Title</div>
+            <div class="header__item">Category</div>
+            <div class="header__item">Description</div>
+            <div class="header__item">Price</div>
+            <div class="header__item">Stock</div>
+            <div class="header__item">Code</div>
+        </div>
+        <div class="table-content">
+        {{#each products}}
+            <div class="table-row">
+                <div class="table-data">{{title}}</div>
+                <div class="table-data">{{category}}</div>
+                <div class="table-data">{{description}}</div>
+                <div class="table-data">{{price}}</div>
+                <div class="table-data">{{stock}}</div>
+                <div class="table-data">{{code}}</div>
+            </div>
+        {{/each}}
+        </div>
+    </div>
+</div>
+{{/if}}
