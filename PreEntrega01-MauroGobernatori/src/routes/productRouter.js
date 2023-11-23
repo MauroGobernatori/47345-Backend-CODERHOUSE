@@ -7,7 +7,7 @@ const productManager = new ProductManager('./src/data/products.json');
 
 router.get('/', async (req,res) => {
     try{
-        const { limit } = req.body;
+        const { limit } = req.query;
         if(!limit){
             const products = await productManager.getProducts();
             res.status(200).json(products);
