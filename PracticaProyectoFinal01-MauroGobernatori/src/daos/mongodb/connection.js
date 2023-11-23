@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const connectionString = 'mongodb+srv://maurogobernatori:admin@cluster0.or4oc4e.mongodb.net/ecommerce';
+const connectionString = 'mongodb+srv://maurogobernatori:*****@cluster0.or4oc4e.mongodb.net/ecommerce';
 
 export const initMongoDB = async () => {
     try{
