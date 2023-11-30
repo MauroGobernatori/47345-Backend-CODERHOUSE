@@ -4,7 +4,7 @@ export default class CartDaoMongoDB {
 
     async getById(cid){
         try{
-            const response = CartModel.findById(cid);
+            const response = CartModel.findById(cid).populate('products');
             return response
         }catch(error){
             console.log(error);
@@ -33,6 +33,42 @@ export default class CartDaoMongoDB {
                 const response = await CartModel.updateOne({ _id: cid}, { $push: { products: obj }});
                 return response
             }
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    async delCartProds(cid){
+        try{
+            const response = await CartModel.updateOne({_id: cid}, { $set: { products: [] }});
+            return response
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    async delProd(cid, pid){
+        try{
+            const response = await CartModel.updateOne({ _id: cid }, {$pull: { products: { _id: pid } }});
+            return response
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    async cartUpdate(cid, obj){
+        try{
+            const response = await CartModel.updateOne({_id: cid}, { $set: { products: obj }});
+            return response
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    async quantityUpdate(cid, pid, newQuantity){
+        try{
+            const response = await CartModel.updateOne({ _id: cid ,  products: { $elemMatch: { _id: pid } }}, { $set: { "products.$.quantity": newQuantity }})
+            return response
         }catch(error){
             console.log(error);
         }

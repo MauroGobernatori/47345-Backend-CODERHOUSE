@@ -1,17 +1,9 @@
 import CartDaoMongoDB from '../daos/mongodb/cartDao.js';
 const cartDao = new CartDaoMongoDB();
 
-// export const getAll = async () => {
-//     try{
-//         return await cartDao.getAll();
-//     }catch(error){
-//         console.log(error);
-//     }
-// }
-
-export const getById = async (id) => {
+export const getById = async (cid) => {
     try{
-        const cart = await cartDao.getById(id);
+        const cart = await cartDao.getById(cid);
         if(!cart){
             return false
         }else{
@@ -30,6 +22,15 @@ export const create = async () => {
         }else{
             return newCart
         }
+    }catch(error){
+        console.log(error);
+    }
+}
+
+export const fillCart = async (cid, pid, quantity) => {
+    try{
+        const fillCart = await cartDao.fillCart(cid, pid, quantity);
+        return fillCart
     }catch(error){
         console.log(error);
     }
