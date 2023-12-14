@@ -4,8 +4,6 @@ import UserDao from '../daos/userDao.js';
 const userDao = new UserDao();
 
 const strategyOptions = {
-    clientID: "Iv1.13e0e409b05ea6af",
-    clientSecret: "cc9d0e1e39f6b5c32d11eed347d3e822c2453cbe",
     callbackURL: "http://localhost:8080/users/github",
 };
 
