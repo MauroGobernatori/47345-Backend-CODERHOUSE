@@ -33,7 +33,7 @@ export default class UserDaoMongoDB {
     async register(user){
         try {
             const { email, password } = user;
-            const exists = await UserModel.findOne({ email });
+            const exists = await this.getByEmail(email);
             if (!exists){
                 if(email === 'adminCoder@coder.com' && password === 'adminCoder123'){
                     return await UserModel.create({
@@ -57,7 +57,7 @@ export default class UserDaoMongoDB {
     // Chequea el email y contraseña en la base de datos para realizar el login del usuario
     async login(email, password){
         try{
-            const userExist = await UserModel.findOne({ email });
+            const userExist = await this.getByEmail(email);
             if (userExist){
                 const isValid = isValidPassword(userExist, password);
                 if(isValid){

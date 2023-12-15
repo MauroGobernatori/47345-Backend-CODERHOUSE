@@ -19,7 +19,11 @@ router.post("/register", passport.authenticate('register'), controller.registerR
 router.post("/login", passport.authenticate('login'), controller.loginResponse);
 
 router.get('/register-github', passport.authenticate('github', { scope: ["user:email"] }));
-router.get('/github', passport.authenticate('github', { scope: ['user:email'] }), controller.githubResponse);
+router.get('/github', passport.authenticate('github', {
+    failureRedirect: '/login', 
+    successRedirect: '/profile', 
+    passReqToCallback: true
+}));
 
 router.post('/logout', controller.logout);
 
