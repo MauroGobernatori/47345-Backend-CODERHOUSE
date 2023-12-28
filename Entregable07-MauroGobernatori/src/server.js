@@ -14,6 +14,7 @@ import { __dirname, mongoStoreOptions } from './utils.js';
 import passport from 'passport';
 import './passport/localPassport.js';
 import './passport/githubPassport.js';
+import './passport/jwtPassport.js';
 
 const app = express();
 

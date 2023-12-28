@@ -1,5 +1,6 @@
-import UserServices from "../services/userServices.js";
-const userService = new UserServices();
+// import { generateToken } from "../jwt/auth.js";
+// import UserServices from "../services/userServices.js";
+// const userService = new UserServices();
 
 export default class UserController {
 
@@ -57,7 +58,7 @@ export default class UserController {
 
   async loginResponse(req, res, next){
     try{
-      res.redirect('/profile');
+      res.cookie('token', req.user.access_token, {httpOnly: true}).redirect('/profile');
     }catch(error){
       res.redirect('/error-login');
     }
@@ -68,6 +69,14 @@ export default class UserController {
       res.redirect('/profile');
     } catch (error) {
       res.redirect('/error-login');
+    }
+  }
+
+  async currentUser(req, res, next){
+    try{
+      res.redirect('/current');
+    }catch(error){
+      res.redirect('/profile');
     }
   }
 }

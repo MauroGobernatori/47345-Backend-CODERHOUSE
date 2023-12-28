@@ -4,6 +4,7 @@ const controller = new UserController();
 
 // import { validateLogin } from '../middlewares/validateLogin.js';
 import passport from 'passport';
+// import { verifyToken } from "../middlewares/verifyToken.js";
 
 const router = Router();
 
@@ -26,5 +27,24 @@ router.get('/github', passport.authenticate('github', {
 }));
 
 router.post('/logout', controller.logout);
+
+router.get('/current', passport.authenticate('jwtCookies'), controller.currentUser);
+
+// router.get('/private', verifyToken, (req, res) => {
+//     const { first_name, last_name, email, role } = req.user;
+//     res.json({
+//         status: "success",
+//         userData: {
+//             first_name,
+//             last_name,
+//             email,
+//             role,
+//         },
+//     });
+// });
+
+// router.get('/private2', passport.authenticate('jwtCookies'), (req, res) => {
+//     res.send(req.user);
+// });
 
 export default router;

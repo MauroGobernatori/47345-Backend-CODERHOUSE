@@ -4,6 +4,7 @@ const userDao = new UserDao();
 
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
+import { generateToken } from '../jwt/auth.js';
 
 // Como default usa los nombres 'username' y 'password' para chequear en el login, en nuestro caso se llaman 'email' y 'password', con estas opciones le decimos los nombres que queremos que use
 const strategyOptions = {
@@ -31,7 +32,12 @@ const login = async (req, email, password, done) => {
     try{
         const userLogin = await userDao.login(email, password);
         if(userLogin){
-            return done(null, userLogin)
+            const access_token = generateToken(userLogin);
+            const obj = {
+                ...userLogin._doc,
+                access_token: access_token
+            }
+            return done(null, obj)
         }else{
             return done(null, false, { msg: "User not found" })
         }

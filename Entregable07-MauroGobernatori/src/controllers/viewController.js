@@ -22,3 +22,8 @@ export const profile = (req, res) => {
 export const logout = (req, res) => {
     res.render('logout');
 }
+
+export const current = (req, res) => {
+    // console.log(req);
+    res.render('current', { ...req.user });
+}

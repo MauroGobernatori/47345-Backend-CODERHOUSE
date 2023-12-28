@@ -12,7 +12,7 @@ export const verifyToken = async (req,res, next) => {
         }else{
             const token = authHeader.split(' ')[1]; // Para sacarle el 'Bearer' que se pone al principio del authHeader
             const decode = jwt.verify(token, PRIVATE_KEY);
-            console.log('decode::', decode); // Esto es el payload
+            // console.log('decode::', decode); // Esto es el payload --> { userId: id_de_mongo }
             const user = await userDao.getById(decode.userId);
             if(!user){
                 res.status(401).json({ msg: 'Unauthorized' });
@@ -23,5 +23,6 @@ export const verifyToken = async (req,res, next) => {
         }
     }catch(error){
         console.log(error);
+        return res.status(401).json({ msg: "Unauthorized" });
     }
 }
