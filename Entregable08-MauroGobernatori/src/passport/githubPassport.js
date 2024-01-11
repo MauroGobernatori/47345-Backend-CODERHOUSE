@@ -1,25 +1,24 @@
-import { Strategy as GithubStrategy } from 'passport-github2';
 import passport from 'passport';
-import UserDao from '../daos/userDao.js';
-const userDao = new UserDao();
+import { Strategy as GithubStrategy } from 'passport-github2';
+import UserService from '../services/userService.js';
+const userService = new UserService();
 
 import 'dotenv/config';
 
 const strategyOptions = {
     clientID: process.env.clientID,
     clientSecret: process.env.clientSecret,
-    callbackURL: "http://localhost:8080/users/github",
+    callbackURL: "http://localhost:8080/api/users/github",
 };
 
 const registerOrLogin = async (accessToken, refreshToken, profile, done) => {
     // const email = profile._json.email;
-    console.log(profile);
     const email = "pepito@gmail.com";
-    const user = await userDao.getByEmail(email);
+    const user = await userService.getByEmail(email);
     if(user){
         return done(null, user);
     }else{
-        const newUser = await userDao.register({
+        const newUser = await userService.register({
             first_name: profile._json.name,
             // email,
             email: "pepito@gmail.com",

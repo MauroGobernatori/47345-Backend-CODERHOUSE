@@ -3,8 +3,11 @@ import passport from 'passport';
 import UserDao from '../daos/userDao.js';
 const userDao = new UserDao();
 
+import 'dotenv/config';
+
 const strategyOptions = {
-    
+    clientID: process.env.clientID,
+    clientSecret: process.env.clientSecret,
     callbackURL: "http://localhost:8080/users/github",
 };
 
