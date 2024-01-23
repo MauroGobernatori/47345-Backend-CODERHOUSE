@@ -1,0 +1,30 @@
+<form action="/api/products/create" method="post">
+    <label for="name">Name</label>
+    <input type="text" name="name">
+    <label for="description">Description</label>
+    <input type="text" name="description">
+    <label for="price">Price</label>
+    <input type="number" name="price" step=".01">
+    <label for="stock">Stock</label>
+    <input type="number" name="stock">
+    <input type="submit" value="Create Product">
+</form>
+
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Stock</th>
+    </thead>
+    <tbody>
+        {{#each products }}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.description}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.stock}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
