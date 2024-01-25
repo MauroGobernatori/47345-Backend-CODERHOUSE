@@ -1,6 +1,9 @@
 import  ProductDao  from '../daos/productDao.js';
 const productDao = new ProductDao();
 
+import ProductRepository from '../repository/productRepository.js';
+const productRepository = new ProductRepository();
+
 export default class ProductService{
     async getAll(){
         try{
@@ -12,7 +15,13 @@ export default class ProductService{
 
     async getById(id){
         try{
-            return await productDao.getById(id)
+            // const prod = await productDao.getById(id);
+            const prod = await productRepository.getProductById(id);
+            if(prod){
+                return prod
+            }else{
+                return false
+            }
         }catch(error){
             throw new Error(error)
         }
@@ -20,7 +29,8 @@ export default class ProductService{
 
     async createProduct(prod){
         try{
-            const product = await productDao.createProduct(prod);
+            // const product = await productDao.createProduct(prod);
+            const product = await productRepository.createProduct(prod);
             if(product){
                 return product
             }else{

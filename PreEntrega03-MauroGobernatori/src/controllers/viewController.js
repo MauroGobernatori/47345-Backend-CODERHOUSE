@@ -30,7 +30,8 @@ export const products = async (req, res) => {
     if(req.user.role=='admin'){
         res.render('products', { ...req.user, products: products, admin: true });
     }else{
-        res.render('products', { ...req.user, products: products, admin: false });
+        const cart = await viewService.getProductsOfCart(req.user.cart);
+        res.render('products', { ...req.user, products: products, admin: false, fullCart: cart });
     }
 }
 

@@ -37,7 +37,7 @@
             </td>
             {{else}}
             <td>
-                <form action="/api/cart/add_item/{{../_doc.cart}}/{{this._id}}?quantity=1" method="post">
+                <form action="/api/cart/add_item/{{../cart}}/{{this._id}}?quantity=1" method="post">
                     <input type="submit" value="Add to cart">
                 </form>
             </td>
@@ -47,7 +47,28 @@
     </tbody>
 </table>
 
-{{#unless admin}}
+{{!-- {{#unless admin}}
 <button><a href="/api/buy">Buy</a></button>
-{{/unless}}
+{{/unless}} --}}
 <button><a href="/api/profile">Go to Profile</a></button>
+
+{{#unless admin}}
+{{#if fullCart}}
+<table>
+    <thead>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+    </thead>
+    <tbody>
+        {{#each fullCart}}
+        <tr>
+            <td>{{this.product_name}}</td>
+            <td>{{this.quantity}}</td>
+            <td>{{this.price}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{/if}}
+{{/unless}}

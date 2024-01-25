@@ -7,7 +7,6 @@ export default class UserController {
     // Esta función destruye la session que se creó
     async logout(req, res, next){
         try{
-            // console.log(req.user);
             const { _id } = req.user
             await service.wipeCart(_id)
             req.session.destroy((err) => {

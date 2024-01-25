@@ -4,11 +4,20 @@ const userDao = new UserDao();
 import CartService from './cartService.js';
 const cartService = new CartService();
 
+import UserRepository from '../repository/userRepository.js';
+const userRepository = new UserRepository();
+
 export default class UserService{
 
     async getByEmail(email){
         try{
-            return await userDao.getByEmail(email)
+            // return await userDao.getByEmail(email)
+            const user = await userRepository.getUserByEmail(email);
+            if(user){
+                return user
+            }else{
+                return false
+            }
         }catch(error){
             throw new Error(error)
         }
@@ -16,7 +25,13 @@ export default class UserService{
 
     async getById(id){
         try{
-            return await userDao.getById(id)
+            // return await userDao.getById(id)
+            const user = await userRepository.getUserById(id);
+            if(user){
+                return user
+            }else{
+                return false
+            }
         }catch(error){
             throw new Error(error)
         }
@@ -55,7 +70,8 @@ export default class UserService{
 
     async wipeCart(id){
         try{
-            const user = await userDao.getById(id);
+            // const user = await userDao.getById(id);
+            const user = await this.getById(id);
             if(user){
                 const cartWiped = await cartService.wipeCart(user.cart)
                 if(cartWiped){
