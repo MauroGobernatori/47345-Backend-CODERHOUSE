@@ -10,4 +10,12 @@ export default class ViewService{
             throw new Error(error)
         }
     }
+
+    async getProductById(id){
+        try{
+            return await productService.getById(id)
+        }catch(error){
+            throw new Error(error)
+        }
+    }
 }

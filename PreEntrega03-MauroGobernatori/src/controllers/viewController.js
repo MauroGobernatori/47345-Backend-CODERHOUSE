@@ -27,9 +27,19 @@ export const logout = (req, res) => {
 
 export const products = async (req, res) => {
     const products = await viewService.getAllProducts();
-    res.render('products', { products: products });
+    if(req.user.role=='admin'){
+        res.render('products', { ...req.user, products: products, admin: true });
+    }else{
+        res.render('products', { ...req.user, products: products, admin: false });
+    }
 }
 
 export const current = (req, res) => {
     res.render('current', { ...req.user });
+}
+
+export const productUpdate = async (req, res) => {
+    const { id } = req.params
+    const prod = await viewService.getProductById(id);
+    res.render('product_update', { ...prod});
 }

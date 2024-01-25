@@ -1,3 +1,5 @@
+{{#if admin }}
+<div>Add new Product</div>
 <form action="/api/products/create" method="post">
     <label for="name">Name</label>
     <input type="text" name="name">
@@ -9,6 +11,7 @@
     <input type="number" name="stock">
     <input type="submit" value="Create Product">
 </form>
+{{/if}}
 
 <table>
     <thead>
@@ -16,6 +19,7 @@
         <th>Description</th>
         <th>Price</th>
         <th>Stock</th>
+        <th></th>
     </thead>
     <tbody>
         {{#each products }}
@@ -24,7 +28,26 @@
             <td>{{this.description}}</td>
             <td>{{this.price}}</td>
             <td>{{this.stock}}</td>
+            {{#if ../admin }}
+            <td>
+                <button><a href="/api/product_update/{{this._id}}">Update</a></button>
+                <form action="/api/products/delete/{{this._id}}?method=delete" method="post">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+            {{else}}
+            <td>
+                <form action="/api/cart/add_item/{{../_doc.cart}}/{{this._id}}?quantity=1" method="post">
+                    <input type="submit" value="Add to cart">
+                </form>
+            </td>
+            {{/if}}
         </tr>
         {{/each}}
     </tbody>
 </table>
+
+{{#unless admin}}
+<button><a href="/api/buy">Buy</a></button>
+{{/unless}}
+<button><a href="/api/profile">Go to Profile</a></button>

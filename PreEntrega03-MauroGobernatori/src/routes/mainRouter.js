@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import userRouter from './userRouter.js';
 import viewRouter from './viewRouter.js';
-// import cartRouter from './cartRouter.js';
+import cartRouter from './cartRouter.js';
 import productRouter from './productRouter.js';
 
 export default class MainRouter {
@@ -13,8 +13,9 @@ export default class MainRouter {
 
     initRoutes() {
         this.router.use('/users', userRouter);
-        this.router.use('/views', viewRouter);
+        this.router.use('', viewRouter);
         this.router.use('/products', productRouter);
+        this.router.use('/cart', cartRouter);
     }
 
     getRouter() {
