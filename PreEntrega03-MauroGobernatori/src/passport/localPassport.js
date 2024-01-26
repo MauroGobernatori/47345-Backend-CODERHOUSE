@@ -1,7 +1,6 @@
 // Passport crea un objeto dentro de la session creada por express-session, dentro de la request, donde guarda información del usuario
 
-import UserService from '../services/userService.js';
-const userService = new UserService();
+import { userService } from '../services/userService.js';
 
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';

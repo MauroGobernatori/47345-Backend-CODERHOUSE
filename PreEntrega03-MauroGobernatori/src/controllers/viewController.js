@@ -1,5 +1,4 @@
-import ViewService from "../services/viewService.js";
-const viewService = new ViewService();
+import { viewService } from "../services/viewService.js";
 
 export const register = (req, res) => {
     res.render('register');

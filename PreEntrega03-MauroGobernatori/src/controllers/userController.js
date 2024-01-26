@@ -1,6 +1,5 @@
 // Agregar clase general de controller, de donde UserController, ViewController y CartController van a heredar
-import UserService from '../services/userService.js';
-const service = new UserService();
+import { userService } from '../services/userService.js';
 
 export default class UserController {
 

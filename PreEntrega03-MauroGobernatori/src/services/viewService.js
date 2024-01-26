@@ -1,10 +1,8 @@
-import ProductService from "./productService.js";
-const productService = new ProductService();
+import { productService } from "./productService.js";
 
-import CartService from "./cartService.js";
-const cartService = new CartService();
+import { cartService } from "./cartService.js";
 
-export default class ViewService{
+class ViewService{
     async getAllProducts(){
         try{
             const products = await productService.getAll();
@@ -48,3 +46,5 @@ export default class ViewService{
         }
     }
 }
+
+export const viewService = new ViewService();

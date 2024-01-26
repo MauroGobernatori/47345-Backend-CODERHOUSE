@@ -1,13 +1,12 @@
 import UserDao from '../daos/userDao.js';
 const userDao = new UserDao();
 
-import CartService from './cartService.js';
-const cartService = new CartService();
-
 import UserRepository from '../repository/userRepository.js';
 const userRepository = new UserRepository();
 
-export default class UserService{
+import { cartService } from './cartService.js';
+
+class UserService{
 
     async getByEmail(email){
         try{
@@ -87,3 +86,5 @@ export default class UserService{
         }
     }
 }
+
+export const userService = new UserService();

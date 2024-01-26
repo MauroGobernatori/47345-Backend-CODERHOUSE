@@ -12,7 +12,7 @@ router.get('/profile', isAuth, profile);
 router.get('/logout', logout);
 
 router.get('/product_list', isAuth, products);
-router.get('/product_update/:id', isAuth, productUpdate)
+router.get('/product_update/:id', isAuth, productUpdate);
 
 router.get('/current', current);
 

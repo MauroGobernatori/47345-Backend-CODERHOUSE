@@ -47,9 +47,9 @@
     </tbody>
 </table>
 
-{{!-- {{#unless admin}}
-<button><a href="/api/buy">Buy</a></button>
-{{/unless}} --}}
+{{#unless admin}}
+<button><a href="/api/cart/{{cart}}/purchase">Buy</a></button>
+{{/unless}}
 <button><a href="/api/profile">Go to Profile</a></button>
 
 {{#unless admin}}

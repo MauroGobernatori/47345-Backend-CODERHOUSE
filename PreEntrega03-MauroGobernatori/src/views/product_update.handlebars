@@ -1,15 +1,13 @@
-<div>Updating the Product</div>
+<div>Updating the Product {{name}}</div>
 
-{{_doc._id}}
-
-<form action="/api/products/update/{{_doc._id}}?method=put" method="post">
+<form action="/api/products/update/{{_id}}?method=put" method="post">
     <label for="name">Name</label>
-    <input type="text" name="name" value="{{_doc.name}}">
+    <input type="text" name="name" value="{{name}}">
     <label for="description">Description</label>
-    <input type="text" name="description" value="{{_doc.description}}">
+    <input type="text" name="description" value="{{description}}">
     <label for="price">Price</label>
-    <input type="number" name="price" step=".01" value="{{_doc.price}}">
+    <input type="number" name="price" step=".01" value="{{price}}">
     <label for="stock">Stock</label>
-    <input type="number" name="stock" value="{{_doc.stock}}">
+    <input type="number" name="stock" value="{{stock}}">
     <input type="submit" value="Update Product">
 </form>

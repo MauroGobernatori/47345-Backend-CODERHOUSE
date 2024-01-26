@@ -4,7 +4,7 @@ const productDao = new ProductDao();
 import ProductRepository from '../repository/productRepository.js';
 const productRepository = new ProductRepository();
 
-export default class ProductService{
+class ProductService{
     async getAll(){
         try{
             return await productDao.getAll()
@@ -67,3 +67,5 @@ export default class ProductService{
         }
     }
 }
+
+export const productService = new ProductService();

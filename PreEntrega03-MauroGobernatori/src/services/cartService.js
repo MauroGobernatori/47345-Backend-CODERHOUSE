@@ -1,10 +1,11 @@
 import CartDao from '../daos/cartDao.js';
 const cartDao = new CartDao();
 
-import ProductService from './productService.js';
-const productService = new ProductService();
+import { userService } from "./userService.js";
+import { productService } from './productService.js';
+import { ticketService } from './ticketService.js';
 
-export default class CartService{
+class CartService{
     async createCart(){
         try{
             const newCart = await cartDao.createCart();
@@ -80,4 +81,20 @@ export default class CartService{
             throw new Error(error)
         }
     }
+
+    async generateTicket(userId, cid){
+        try{
+            const cart = await this.getById(cid);
+            const user = await userService.getById(userId);
+            console.log(cart);
+            console.log(user.email);
+
+            
+            // await ticketService.generateTicket(userId, cart);
+        }catch(error){
+            throw new Error(error)
+        }
+    }
 }
+
+export const cartService = new CartService();

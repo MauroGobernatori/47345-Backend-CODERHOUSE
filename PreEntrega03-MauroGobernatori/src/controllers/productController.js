@@ -1,5 +1,4 @@
-import  ProductService  from '../services/productService.js';
-const productService = new ProductService();
+import  { productService }  from '../services/productService.js';
 
 export default class ProductController{
 
