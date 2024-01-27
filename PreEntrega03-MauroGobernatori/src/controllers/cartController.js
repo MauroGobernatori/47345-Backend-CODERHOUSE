@@ -16,8 +16,12 @@ export default class CartController{
         try{
             const { cid } = req.params;
             const { _id } = req.user;
-            await cartService.generateTicket(_id, cid)
-            
+            const response = await cartService.generateTicket(_id, cid);
+            if(response){
+                res.redirect(`/api/purchase/${response._id}`);
+            }else{
+                
+            }
         }catch(error){
             
         }

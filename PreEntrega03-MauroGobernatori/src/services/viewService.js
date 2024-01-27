@@ -1,6 +1,7 @@
 import { productService } from "./productService.js";
 
 import { cartService } from "./cartService.js";
+import { ticketService } from "./ticketService.js";
 
 class ViewService{
     async getAllProducts(){
@@ -20,24 +21,24 @@ class ViewService{
         }
     }
 
-    // async getCartById(id){
-    //     try{
-    //         const cart = await cartService.getById(id);
-    //         if(cart){
-    //             return cart    
-    //         }else{
-    //             return false
-    //         }
-    //     }catch(error){
-    //         throw new Error(error)
-    //     }
-    // }
-
     async getProductsOfCart(cid){
         try{
             const cart = await cartService.getProductsOfCart(cid);
             if(cart){
                 return cart    
+            }else{
+                return false
+            }
+        }catch(error){
+            throw new Error(error)
+        }
+    }
+
+    async getTicketById(tid){
+        try{
+            const ticket = await ticketService.getTicketById(tid);
+            if(ticket){
+                return ticket
             }else{
                 return false
             }

@@ -86,11 +86,52 @@ class CartService{
         try{
             const cart = await this.getById(cid);
             const user = await userService.getById(userId);
-            console.log(cart);
-            console.log(user.email);
+            const cartProducts = await this.getProductsOfCart(cid);
 
+            let total = 0;
+            let indexToRemove = [];
+
+            for(const prod of cartProducts){
+                const productDb = await productService.getById(prod.product_id);
+                if(prod.quantity <= productDb.stock){
+                    total = total + prod.price;
+
+                    productDb.stock = productDb.stock - prod.quantity;
+                    await productService.updateProduct(productDb._id, productDb);
+
+                    indexToRemove.push(cartProducts.findIndex( (p) => p == prod ));
+                }else{
+                    console.log('No se compra');
+                }
+            }
             
-            // await ticketService.generateTicket(userId, cart);
+            indexToRemove = indexToRemove.reverse();
+            for(const index of indexToRemove){
+                cartProducts.splice(index, 1);
+            }
+
+            cart.products = cartProducts;
+            await this.updateCart(cid, cart);
+            
+            const ticket = await ticketService.generateTicket(user.email, total);
+            if(ticket){
+                return ticket
+            }else{
+                return false
+            }
+        }catch(error){
+            throw new Error(error)
+        }
+    }
+
+    async updateCart(cid, cart){
+        try{
+            const updatedCart = await cartDao.updateCart(cid, cart);
+            if(updatedCart){
+                return updatedCart
+            }else{
+                return false
+            }
         }catch(error){
             throw new Error(error)
         }

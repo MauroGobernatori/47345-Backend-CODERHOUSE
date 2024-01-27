@@ -8,4 +8,12 @@ export default class TicketDao {
             throw new Error(error)
         }
     }
+
+    async getTicketById(id){
+        try{
+            return await TicketModel.findById(id)
+        }catch(error){
+            throw new Error(error)
+        }
+    }
 }

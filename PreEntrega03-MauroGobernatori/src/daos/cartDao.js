@@ -58,4 +58,17 @@ export default class CartDao{
             throw new Error(error)
         }
     }
+
+    async updateCart(cid, cart){
+        try{
+            const updatedCart = await CartModel.findByIdAndUpdate({_id: cid}, cart);
+            if(updatedCart){
+                return updatedCart
+            }else{
+                return false
+            }
+        }catch(error){
+            throw new Error(error)
+        }
+    }
 }

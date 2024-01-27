@@ -7,7 +7,7 @@ export default class UserController {
     async logout(req, res, next){
         try{
             const { _id } = req.user
-            await service.wipeCart(_id)
+            await userService.wipeCart(_id)
             req.session.destroy((err) => {
                 if(!err){
                     res.redirect('/api/logout');

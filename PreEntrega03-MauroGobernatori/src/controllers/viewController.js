@@ -43,3 +43,9 @@ export const productUpdate = async (req, res) => {
     const prod = await viewService.getProductById(id);
     res.render('product_update', { ...prod});
 }
+
+export const purchase = async (req, res) => {
+    const { tid } = req.params;
+    const ticket = await viewService.getTicketById(tid);
+    res.render('purchase', ticket);
+}
