@@ -1,0 +1,13 @@
+<h1>Profile</h1>
+
+{{#if _doc.isGithub }}
+<div>Connected with Github!</div>
+{{/if}}
+
+<div>Welcome {{{ _doc.first_name }}}!</div>
+
+<button><a href="/api/product_list">Go to Products</a></button>
+
+<form action='./users/logout' method='post'>
+  <input type='submit' value='Logout' />
+</form>
