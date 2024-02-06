@@ -56,26 +56,54 @@ const customLevels = {
         info: 3,
         http: 4,
         debug: 5
+    },
+    colors: {
+        fatal: 'red',
+        error: 'orange',
+        warning: 'yellow',
+        info: 'blue',
+        http: 'gray',
+        debug: 'white'
     }
 }
 
 const developmentLoggerConfiguration = {
     transports: [
-        new winston.transports.Console({ level: 'debug' })
+        new winston.transports.Console({
+            level: 'debug',
+            format: winston.format.combine(
+                winston.format.colorize({ colors: customLevels.colors }),
+                winston.format.simple()
+            )
+        })
     ],
     levels: customLevels.levels
 }
 
 export const developmentLogger = winston.createLogger(developmentLoggerConfiguration);
 
+export const addDevLogger = (req, res, next) => {
+    req.logger = developmentLogger;
+    next();
+}
+
 const productionLoggerConfiguration = {
     transports: [
         new winston.transports.File({
             filename: './logs/errors.log',
-            level: 'info'
+            level: 'info',
+            format: winston.format.combine(
+                winston.format.colorize({ colors: customLevels.colors }),
+                winston.format.simple()
+            )
         })
     ],
     levels: customLevels.levels
 }
 
 export const productionLogger = winston.createLogger(productionLoggerConfiguration);
+
+export const addProdLogger = (req, res, next) => {
+    req.logger = productionLogger;
+    next();
+}

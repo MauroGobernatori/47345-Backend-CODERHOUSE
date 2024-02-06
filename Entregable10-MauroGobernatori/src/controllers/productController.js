@@ -13,11 +13,14 @@ export default class ProductController{
             }
             const newProduct = await productService.createProduct(prod)
             if(newProduct){
+                req.logger.debug(`Product created successfully. ${newProduct}`);
                 res.redirect('/api/product_list');
             }else{
+                req.logger.error('Product creation error!');
                 return httpResponse.NotFound(res, errorsDictionary.ERROR_CREATE_PRODUCT);
             }
         }catch(error){
+            req.logger.error('Error with product creation function!');
             next(error);
         }
     }
@@ -29,14 +32,18 @@ export default class ProductController{
             if(method === 'delete'){
                 const deletedProduct = await productService.deleteProduct(id);
                 if(deletedProduct){
+                    req.logger.debug(`Product deleted successfully. ${deletedProduct}`);
                     res.redirect('/api/product_list');    
                 }else{
+                    req.logger.error('Product deletion error!');
                     return httpResponse.NotFound(res, errorsDictionary.ERROR_DELETE_PRODUCT);
                 }
             }else{
+                req.logger.error(`Product deletion error! Incorrect method '${method}'.`);
                 return httpResponse.NotFound(res, errorsDictionary.ERROR_DELETE_PRODUCT);
             }
         }catch(error){
+            req.logger.error('Error with product deletion function!');
             next(error);
         }
     }
@@ -55,14 +62,18 @@ export default class ProductController{
             if(method === 'put'){
                 const updatedProduct = await productService.updateProduct(id, prod)
                 if(updatedProduct){
+                    req.logger.debug(`Product updated successfully. ${updatedProduct}`);
                     res.redirect('/api/product_list');
                 }else{
+                    req.logger.error('Product update error!');
                     return httpResponse.NotFound(res, errorsDictionary.ERROR_UPDATE_PRODUCT);
                 }
             }else{
+                req.logger.error(`Product update error! Incorrect method '${method}'.`);
                 return httpResponse.NotFound(res, errorsDictionary.ERROR_UPDATE_PRODUCT);
             }
         }catch(error){
+            req.logger.error('Error with product update function!');
             next(error);
         }
     }

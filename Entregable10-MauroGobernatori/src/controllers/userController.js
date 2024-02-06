@@ -15,6 +15,7 @@ export default class UserController {
                 if(!err){
                     res.redirect('/api/logout');
                 }else{
+                    req.logger.fatal('Fatal error logging out');
                     return httpResponse.NotFound(res, errorsDictionary.ERROR_LOGOUT)
                     // res.json({ status: 'Error with logout', body: err });
                 }
@@ -28,6 +29,7 @@ export default class UserController {
         try{
             res.redirect('/api/login');
         }catch(error){
+            req.logger.error('Error with the registration!');
             res.redirect('/api/error-register');
         }
     }
@@ -36,6 +38,7 @@ export default class UserController {
         try{
             res.cookie('token', req.user.access_token, {httpOnly: true}).redirect('/api/profile');
         }catch(error){
+            req.logger.error('Error logging in!');
             res.redirect('/api/error-login');
         }
     }
@@ -44,6 +47,7 @@ export default class UserController {
         try {
             res.redirect('/api/profile');
         } catch (error) {
+            req.logger.error('Error with github login!');
             res.redirect('/api/error-login');
         }
     }
@@ -53,6 +57,7 @@ export default class UserController {
             console.log(req.user);
             res.redirect('/api/current');
         }catch(error){
+            req.logger.error('Error showing current user!');
             res.redirect('/api/profile');
         }
     }

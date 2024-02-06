@@ -16,7 +16,7 @@ import './passport/localPassport.js';
 import './passport/githubPassport.js';
 import './passport/jwtPassport.js';
 
-import { developmentLogger, productionLogger } from './utils.js';
+import { developmentLogger, productionLogger, addDevLogger, addProdLogger } from './utils.js';
 
 const app = express();
 const mainRouter = new MainRouter();
@@ -38,6 +38,8 @@ app.use(session(mongoStoreOptions));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(addDevLogger);
 
 app.use('/api', mainRouter.getRouter());
 
