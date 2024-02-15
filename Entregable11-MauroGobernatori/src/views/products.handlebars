@@ -1,0 +1,92 @@
+{{#if admin }}
+<div>Add new Product</div>
+<form action="/products/create" method="post">
+    <label for="name">Name</label>
+    <input type="text" name="name">
+    <label for="description">Description</label>
+    <input type="text" name="description">
+    <label for="price">Price</label>
+    <input type="number" name="price" step=".01">
+    <label for="stock">Stock</label>
+    <input type="number" name="stock">
+    <input type="submit" value="Create Product">
+</form>
+{{/if}}
+
+{{#if premium }}
+<div>Add new Product</div>
+<form action="/products/create" method="post">
+    <label for="name">Name</label>
+    <input type="text" name="name">
+    <label for="description">Description</label>
+    <input type="text" name="description">
+    <label for="price">Price</label>
+    <input type="number" name="price" step=".01">
+    <label for="stock">Stock</label>
+    <input type="number" name="stock">
+    <input type="submit" value="Create Product">
+</form>
+{{/if}}
+
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th></th>
+    </thead>
+    <tbody>
+        {{#each products }}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.description}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.stock}}</td>
+            {{#if ../admin }}
+            <td>
+                <button><a href="/product_update/{{this._id}}">Update</a></button>
+                <form action="/products/delete/{{this._id}}?method=delete" method="post">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+            {{else}}
+            <td>
+                <form action="/cart/add_item/{{../cart}}/{{this._id}}?quantity=1" method="post">
+                    <input type="submit" value="Add to cart">
+                </form>
+                {{#if (equals this.owner ../_id)}}
+                <div>Hola</div>
+                {{/if}}
+            </td>
+            {{/if}}
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{#unless admin}}
+<button><a href="/cart/{{cart}}/purchase">Buy</a></button>
+{{/unless}}
+<button><a href="/profile">Go to Profile</a></button>
+
+{{#unless admin}}
+{{#if fullCart}}
+<table>
+    <thead>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+    </thead>
+    <tbody>
+        {{#each fullCart}}
+        <tr>
+            <td>{{this.product_name}}</td>
+            <td>{{this.quantity}}</td>
+            <td>{{this.price}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{/if}}
+{{/unless}}
