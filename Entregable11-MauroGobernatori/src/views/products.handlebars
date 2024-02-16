@@ -53,10 +53,14 @@
             {{else}}
             <td>
                 <form action="/cart/add_item/{{../cart}}/{{this._id}}?quantity=1" method="post">
+                    <input type="text" name="owner" value="{{this.owner}}" hidden="hidden">
                     <input type="submit" value="Add to cart">
                 </form>
                 {{#if (equals this.owner ../_id)}}
-                <div>Hola</div>
+                <button><a href="/product_update/{{this._id}}">Update</a></button>
+                <form action="/products/delete/{{this._id}}?method=delete" method="post">
+                    <input type="submit" value="Delete">
+                </form>
                 {{/if}}
             </td>
             {{/if}}
