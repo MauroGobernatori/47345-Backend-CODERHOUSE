@@ -62,3 +62,7 @@ export const productsMock = async (req, res) => {
     const products = await viewService.createProductsMock(cant);
     res.redirect('product_list');
 }
+
+export const reset_password = async (req, res) => {
+    res.render('reset-password');
+}
