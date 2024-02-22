@@ -5,6 +5,7 @@ import UserRepository from '../repository/userRepository.js';
 const userRepository = new UserRepository();
 
 import { cartService } from './cartService.js';
+import { sendMail } from './emailService.js';
 
 class UserService{
 
@@ -95,6 +96,19 @@ class UserService{
                 return false
             }
         }catch(error){
+            throw new Error(error)
+        }
+    }
+
+    async updatePass(user, pass){
+        try {
+            const response = await userDao.updatePass(user, pass);
+            if (!response){
+                return false
+            }else{
+                return response
+            }
+        }catch(error) {
             throw new Error(error)
         }
     }

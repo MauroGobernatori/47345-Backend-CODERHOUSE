@@ -1,5 +1,7 @@
 import { UserModel } from "./models/userModel.js";
 import { createHash, isValidPassword } from '../utils.js';
+import jwt from 'jsonwebtoken';
+import 'dotenv/config';
 
 export default class UserDaoMongoDB {
     async getByEmail(email){
@@ -87,6 +89,22 @@ export default class UserDaoMongoDB {
                 }
             }else{
                 return false
+            }
+        }catch(error){
+            throw new Error(error)
+        }
+    }
+    
+    async updatePass(email, pass){
+        try{
+            const userExist = await this.getByEmail(email);
+            if (userExist){
+                const isEqual = isValidPassword(userExist, pass);
+                if(isEqual){
+                    return false
+                }
+                const newPass = createHash(pass);
+                return await UserModel.findByIdAndUpdate(userExist._id, {password: newPass})
             }
         }catch(error){
             throw new Error(error)

@@ -66,3 +66,8 @@ export const productsMock = async (req, res) => {
 export const reset_password = async (req, res) => {
     res.render('reset-password');
 }
+
+export const new_password = async (req, res) => {
+    const { email } = req.query;
+    res.render('new-password', {email: email});
+}

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { login, register, errorLogin, errorRegister, profile, logout, current, products, productUpdate, purchase, productsMock, reset_password } from '../controllers/viewController.js';
+import { login, register, errorLogin, errorRegister, profile, logout, current, products, productUpdate, purchase, productsMock, reset_password, new_password } from '../controllers/viewController.js';
 import { isAuth } from '../middlewares/isAuth.js';
 
 import { developmentLogger, productionLogger } from '../utils.js';
@@ -17,7 +17,8 @@ router.get('/product_list', isAuth, products);
 router.get('/product_update/:id', isAuth, productUpdate);
 router.get('/purchase/:tid', isAuth, purchase);
 
-router.get('/reset-password', reset_password)
+router.get('/reset-password', reset_password);
+router.get('/new-pass', new_password);
 
 router.get('/mockingproducts', isAuth, productsMock);
 
