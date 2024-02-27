@@ -1,0 +1,29 @@
+components:
+  parameters:
+    schemas:
+      BodyNewProduct:
+        type: object
+        required:
+          - name
+          - description
+          - price
+          - stock
+          - role
+        properties:
+          name:
+            type: string
+            description: Name of the product
+          description:
+            type: string
+            description: Description of the product
+          price:
+            type: number
+            description: Price of the product
+          stock:
+            type: number
+            description: Current amount of items available of the product
+        example:
+          name: PlayStation 5
+          description: Sony newest console.
+          price: 800
+          stock: 25

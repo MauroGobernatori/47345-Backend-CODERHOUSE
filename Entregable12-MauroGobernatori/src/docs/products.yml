@@ -1,0 +1,110 @@
+paths:
+  /products/create:
+    post:
+      tags:
+      - Products
+      summary: Product creation on the database
+      # parameters:
+      #   - in: user
+      #     name: role
+      #     required: true
+      #     description: Role of the user, 'admin' or 'premium'
+      #     schema:
+      #       type: string
+      #   - in: user
+      #     name: _id
+      #     description: Id of premium user if role is 'premium'
+      #     schema:
+      #       type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/BodyNewProduct'
+        required: true
+      responses:
+          200:
+            description: Product created successfully.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schema/Products/PostNew'
+          404:
+            description: Validation error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schema/Products/ValidationError'
+          500:
+            description: Server error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schema/Products/NotFound'
+  /products/delete/{id}:
+    post:
+      tags:
+      - Products
+      summary: Product deletion on the database
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Id of product to delete required
+          schema:
+            type: string
+        - in: query
+          name: method
+          required: true
+          description: Insert method 'delete' to work
+          schema:
+            type: string
+      responses:
+          200:
+            description: Product deleted successfully.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schema/Products/PostDelete'
+  /products/update/{id}:
+    post:
+      tags:
+      - Products
+      summary: Product update on the database
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Id of product to update required
+          schema:
+            type: string
+        - in: query
+          name: method
+          required: true
+          description: Insert method 'put' to work
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/BodyNewProduct'
+      responses:
+          200:
+            description: Product updated successfully.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schema/Products/PostNew'
+          404:
+            description: Validation error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schema/Products/ValidationError'
+          500:
+            description: Server error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schema/Products/NotFound'
