@@ -6,10 +6,13 @@ const controller = new ProductController();
 
 const router = Router();
 
+router.get('/products', controller.getAllProducts);
+router.get('/product/:id', controller.getProductById);
+
 router.post('/create', authRoleAdminPremium, controller.createProduct);
 
-router.post('/delete/:id', authRoleAdminOwner, controller.deletedProduct);
+router.delete('/delete/:id', authRoleAdminOwner, controller.deletedProduct);
 
-router.post('/update/:id', authRoleAdminOwner, controller.updateProduct);
+router.put('/update/:id', authRoleAdminOwner, controller.updateProduct);
 
 export default router;

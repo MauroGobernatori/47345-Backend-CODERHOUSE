@@ -46,9 +46,7 @@
             {{#if ../admin }}
             <td>
                 <button><a href="/product_update/{{this._id}}">Update</a></button>
-                <form action="/products/delete/{{this._id}}?method=delete" method="post">
-                    <input type="submit" value="Delete">
-                </form>
+                <button onclick="deleteMethod('{{this._id}}')">Delete</button>
             </td>
             {{else}}
             <td>
@@ -94,3 +92,14 @@
 </table>
 {{/if}}
 {{/unless}}
+
+<script>
+    async function deleteMethod(id){
+        await fetch(`../products/delete/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    }
+</script>

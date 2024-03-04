@@ -7,6 +7,8 @@ const httpStatus = {
 };
 
 export const errorsDictionary = {
+    ERROR_SHOW_ALL_PRODUCTS: 'Error showing all products',
+    ERROR_SHOW_PRODUCT_BY_ID: 'Error showing product by id',
     ERROR_CREATE_PRODUCT: 'Error creating product',
     ERROR_DELETE_PRODUCT: 'Error deleting product',
     ERROR_UPDATE_PRODUCT: 'Error updating product',
