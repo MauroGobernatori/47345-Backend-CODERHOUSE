@@ -71,4 +71,32 @@ export default class CartDao{
             throw new Error(error)
         }
     }
+
+    async removeItemFromCart(cid, pid){
+        try{
+            let contains = false;
+            let prodIndex = -1;
+            const cart = await this.getById(cid);
+            cart.products.forEach( (product, index) => {
+                if(product.product_id == pid){
+                    contains = true;
+                    prodIndex = index
+                }
+            })
+            if(contains){
+                const x = cart.products.splice(prodIndex, 1);
+
+                const updatedCart = await this.updateCart(cid, cart);
+                if(updatedCart){
+                    return updatedCart
+                }else{
+                    return false
+                }
+            }else{
+                return false
+            }
+        }catch(error){
+            throw new Error(error)
+        }
+    }
 }

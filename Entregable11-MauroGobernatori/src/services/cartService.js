@@ -136,6 +136,19 @@ class CartService{
             throw new Error(error)
         }
     }
+
+    async removeItemFromCart(cid, pid){
+        try{
+            const response = await cartDao.removeItemFromCart(cid, pid);
+            if(response){
+                return response
+            }else{
+                return false
+            }
+        }catch(error){
+            throw new Error(error)
+        }
+    }
 }
 
 export const cartService = new CartService();
