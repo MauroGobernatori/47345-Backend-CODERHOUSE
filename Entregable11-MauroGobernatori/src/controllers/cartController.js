@@ -7,11 +7,11 @@ export default class CartController{
     async addItemToCart(req, res, next){
         try{
             const { cid, pid } = req.params;
-            const { quantity } = req.query;
+            const { quantity } = req.body;
             const itemAdded = await cartService.addItemToCart(cid, pid, quantity);
             if(itemAdded){
                 req.logger.debug(`Item added to cart successfully. ${itemAdded}`);
-                res.redirect('/product_list');
+                res.redirect(303, '/product_list');
             }else{
                 req.logger.error('Adding item to cart error!');
                 return httpResponse.NotFound(res, errorsDictionary.ERROR_ADD_TO_CART)
@@ -86,6 +86,24 @@ export default class CartController{
             }
         }catch(error){
             req.logger.error('Error getting cart by id!');
+            next(error);
+        }
+    }
+
+    async updateQuantity(req, res, next){
+        try{
+            const { cid, pid } = req.params;
+            const { quantity } = req.body;
+            const response = await cartService.quantityUpdate(cid, pid, quantity);
+            if(response){
+                req.logger.debug(`Item quantity updated successfully.`);
+                res.redirect(303, '/product_list');
+            }else{
+                req.logger.error('Updating product quantity error!');
+                return httpResponse.NotFound(res, errorsDictionary.ERROR_UPDATE_QUANTITY)
+            }
+        }catch(error){
+            req.logger.error('Error updating product quantity on cart!');
             next(error);
         }
     }

@@ -101,7 +101,7 @@ class CartService{
 
                     indexToRemove.push(cartProducts.findIndex( (p) => p == prod ));
                 }else{
-                    console.log('No se compra');
+                    // console.log('No se compra');
                 }
             }
             
@@ -129,6 +129,32 @@ class CartService{
             const updatedCart = await cartDao.updateCart(cid, cart);
             if(updatedCart){
                 return updatedCart
+            }else{
+                return false
+            }
+        }catch(error){
+            throw new Error(error)
+        }
+    }
+
+    async quantityUpdate(cid, pid, new_quantity){
+        try{
+            const cart = await this.getById(cid);
+
+            if(cart){
+                for(const product of cart.products){
+                    if(product.product_id == pid){
+                        product.quantity = new_quantity
+                    }
+                }
+
+                const updatedCart = await this.updateCart(cid, cart);
+                if(updatedCart){
+                    return updatedCart
+                }else{
+                    return false
+                }
+
             }else{
                 return false
             }

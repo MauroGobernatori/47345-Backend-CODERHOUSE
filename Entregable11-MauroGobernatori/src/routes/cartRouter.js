@@ -6,9 +6,11 @@ const controller = new CartController();
 
 const router = Router();
 
-router.post('/add_item/:cid/:pid', authRoleUserNotOwner, controller.addItemToCart);
+router.put('/update_quantity/:cid/:pid', authRoleUserPremium, controller.updateQuantity);
 
-router.get('/:cid/purchase', authRoleUserPremium, controller.generateTicket);
+router.put('/add_item/:cid/:pid', authRoleUserNotOwner, controller.addItemToCart);
+
+router.post('/:cid/purchase', authRoleUserPremium, controller.generateTicket);
 
 router.delete('/wipe/:cid', controller.wipeCart);
 

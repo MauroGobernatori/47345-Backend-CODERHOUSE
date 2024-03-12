@@ -16,6 +16,7 @@ export const errorsDictionary = {
     ERROR_ADD_TO_CART: 'Error adding product to cart',
     ERROR_WIPE_CART: 'Error wiping cart',
     ERROR_REMOVE_ITEM: 'Error removing item',
+    ERROR_UPDATE_QUANTITY: 'Error updating quantity',
     ERROR_CREATE_USER: 'Error creating user',
     ERROR_PURCHASE: 'Error making purchase',
     ERROR_LOGOUT: 'Error with logout'

@@ -50,15 +50,12 @@
             </td>
             {{else}}
             <td>
-                <form action="/cart/add_item/{{../cart}}/{{this._id}}?quantity=1" method="post">
-                    <input type="text" name="owner" value="{{this.owner}}" hidden="hidden">
-                    <input type="submit" value="Add to cart">
-                </form>
+                <input type="number" id="quantity_input_{{this._id}}" name="quantity" value="1">
+                <input type="text" id="owner_input_{{this._id}}" name="owner" value="{{this.owner}}" hidden="hidden">
+                <button onclick="addItemPut('{{../cart}}', '{{this._id}}')">Add to Cart</button>
                 {{#if (equals this.owner ../_id)}}
                 <button><a href="/product_update/{{this._id}}">Update</a></button>
-                <form action="/products/delete/{{this._id}}?method=delete" method="post">
-                    <input type="submit" value="Delete">
-                </form>
+                <button onclick="deleteMethod('{{this._id}}')">Delete</button>
                 {{/if}}
             </td>
             {{/if}}
@@ -68,7 +65,9 @@
 </table>
 
 {{#unless admin}}
-<button><a href="/cart/{{cart}}/purchase">Buy</a></button>
+<form action="/cart/{{cart}}/purchase" method="POST">
+    <button type="submit">Buy</button>
+</form>
 {{/unless}}
 <button><a href="/profile">Go to Profile</a></button>
 
@@ -84,7 +83,11 @@
         {{#each fullCart}}
         <tr>
             <td>{{this.product_name}}</td>
-            <td>{{this.quantity}}</td>
+                        <td>
+                <span id="span_quantity_{{this.product_id}}">{{this.quantity}}</span>
+                <button onclick="updateQuantity('{{../cart}}', '{{this.product_id}}', '1')"><span class="arrow_up"></span></button>
+                <button onclick="updateQuantity('{{../cart}}', '{{this.product_id}}', '-1')"><span class="arrow_down"></span></button>
+            </td>
             <td>{{this.price}}</td>
         </tr>
         {{/each}}
@@ -102,4 +105,54 @@
             }
         })
     }
+
+    async function addItemPut(cid, pid){
+        const owner_input = document.getElementById(`owner_input_${pid}`);
+        const quantity_input = document.getElementById(`quantity_input_${pid}`);
+
+        await fetch(`../cart/add_item/${cid}/${pid}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                owner: owner_input.value,
+                quantity: quantity_input.value
+            })
+        })
+    }
+
+    async function updateQuantity(cid, pid, amount){
+        const amount_number = Number(amount);
+
+        const current_quantity = document.getElementById(`span_quantity_${pid}`);
+
+        const final_quantity = Number(current_quantity.innerHTML) + amount_number;
+        
+        await fetch(`../cart/update_quantity/${cid}/${pid}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                quantity: final_quantity
+            })
+        })
+    }
 </script>
+
+<style>
+    .arrow_up{
+        background: url('/images/arrow_up.png');
+        height: 32px;
+        width: 32px;
+        display: block;
+    }
+
+    .arrow_down{
+        background: url('../images/arrow_down.png');
+        height: 32px;
+        width: 32px;
+        display: block;
+    }
+</style>

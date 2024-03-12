@@ -6,13 +6,11 @@ const controller = new CartController();
 
 const router = Router();
 
-// put actualizar cantidad
+router.put('/update_quantity/:cid/:pid', authRoleUserPremium, controller.updateQuantity);
 
-// post -> put
-router.post('/add_item/:cid/:pid', authRoleUserNotOwner, controller.addItemToCart);
+router.put('/add_item/:cid/:pid', authRoleUserNotOwner, controller.addItemToCart);
 
-//get -> post
-router.get('/:cid/purchase', authRoleUserPremium, controller.generateTicket);
+router.post('/:cid/purchase', authRoleUserPremium, controller.generateTicket);
 
 router.delete('/wipe/:cid', controller.wipeCart);
 

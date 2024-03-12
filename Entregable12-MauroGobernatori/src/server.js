@@ -31,6 +31,7 @@ app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+app.use(express.static(__dirname+ '/static'));
 
 // -----------------------------------------------------  //
 // -----------------------------------------------------  //
