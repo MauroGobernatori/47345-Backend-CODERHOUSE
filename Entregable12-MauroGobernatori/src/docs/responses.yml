@@ -47,6 +47,18 @@ components:
           message:
             type: string
             description: Product deleted successfully.
+      GetAll:
+        type: object
+        properties:
+          message:
+            type: string
+            description: All products gotten successfully.
+      GetById:
+        type: object
+        properties:
+          message:
+            type: string
+            description: Product gotten by id successfully.
     Cart:
       ItemAdded:
         type: object
@@ -60,6 +72,30 @@ components:
           message:
             type: string
             description: Ticket generated successfully.
+      QuantityUpdate:
+        type: object
+        properties:
+          message:
+            type: string
+            description: Item quantity updated succesffully.
+      Wipe:
+        type: object
+        properties:
+          message:
+            type: string
+            description: Cart wiped successfully.
+      Remove:
+        type: object
+        properties:
+          message:
+            type: string
+            description: Product removed succesffully.
+      GetCart:
+        type: object
+        properties:
+          message:
+            type: string
+            description: Cart showed successfully.
       NotFound:
         type: object
         properties:

@@ -4,18 +4,6 @@ paths:
       tags:
       - Products
       summary: Product creation on the database
-      # parameters:
-      #   - in: user
-      #     name: role
-      #     required: true
-      #     description: Role of the user, 'admin' or 'premium'
-      #     schema:
-      #       type: string
-      #   - in: user
-      #     name: _id
-      #     description: Id of premium user if role is 'premium'
-      #     schema:
-      #       type: string
       requestBody:
         content:
           application/json:
@@ -42,7 +30,7 @@ paths:
                 schema:
                   $ref: '#/components/schema/Products/NotFound'
   /products/delete/{id}:
-    post:
+    delete:
       tags:
       - Products
       summary: Product deletion on the database
@@ -53,12 +41,6 @@ paths:
           description: Id of product to delete required
           schema:
             type: string
-        - in: query
-          name: method
-          required: true
-          description: Insert method 'delete' to work
-          schema:
-            type: string
       responses:
           200:
             description: Product deleted successfully.
@@ -67,7 +49,7 @@ paths:
                 schema:
                   $ref: '#/components/schema/Products/PostDelete'
   /products/update/{id}:
-    post:
+    put:
       tags:
       - Products
       summary: Product update on the database
@@ -76,12 +58,6 @@ paths:
           name: id
           required: true
           description: Id of product to update required
-          schema:
-            type: string
-        - in: query
-          name: method
-          required: true
-          description: Insert method 'put' to work
           schema:
             type: string
       requestBody:
@@ -108,3 +84,34 @@ paths:
               application/json:
                 schema:
                   $ref: '#/components/schema/Products/NotFound'
+  /products:
+    get:
+      tags:
+      - Products
+      summary: Get a list of all the products
+      responses:
+          200:
+            description: Getting all products successfull.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schema/Products/GetAll'
+  /products/{id}:
+    get:
+      tags:
+      - Products
+      summary: Get a product by id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Id of product to be shown required
+          schema:
+            type: string
+      responses:
+          200:
+            description: Getting product by id successfull.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schema/Products/GetById'

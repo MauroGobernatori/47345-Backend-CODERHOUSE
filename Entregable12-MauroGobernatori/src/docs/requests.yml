@@ -27,6 +27,26 @@ components:
           description: Sony newest console.
           price: 800
           stock: 25
+      BodyAddItem:
+        type: object
+        required:
+          - quantity
+        properties:
+          quantity:
+            type: number
+            description: The quantity of the product to add to the cart required
+        example:
+          quantity: 2
+      BodyUpdateQuantity:
+        type: object
+        required:
+          - quantity
+        properties:
+          quantity:
+            type: number
+            description: The new quantity of the product wanted required
+        example:
+          quantity: 1
       BodyLogin:
         type: object
         required:
