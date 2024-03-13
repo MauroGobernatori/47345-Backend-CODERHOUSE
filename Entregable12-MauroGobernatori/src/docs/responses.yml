@@ -66,3 +66,16 @@ components:
           message:
             type: string
             description: Server error
+    Session:
+      Login:
+        type: object
+        properties:
+          message:
+            type: string
+            description: Login successfull.
+      Logout:
+        type: object
+        properties:
+          message:
+            type: string
+            description: Logout successfull.

@@ -27,3 +27,18 @@ components:
           description: Sony newest console.
           price: 800
           stock: 25
+      BodyLogin:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: text
+            description: Email of the user
+          password:
+            type: password
+            description: Password of the user
+        example:
+          email: mauro@mauro.com
+          password: '1234'
