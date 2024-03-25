@@ -1,0 +1,22 @@
+<h1>Profile</h1>
+
+{{#if isGithub }}
+<div>Connected with Github!</div>
+{{/if}}
+
+<div>Welcome {{{ first_name }}}!</div>
+<div>Role: {{{role}}}</div>
+
+<button><a href="/product_list">Go to Products</a></button>
+
+{{#unless admin}}
+<button><a href='/users/premium/{{{_id}}}'>Change role</a></button>
+{{/unless}}
+
+{{#if admin}}
+<button><a href="/admin_panel">Users Manager</a></button>
+{{/if}}
+
+<form action='./users/logout' method='post'>
+  <input type='submit' value='Logout' />
+</form>
