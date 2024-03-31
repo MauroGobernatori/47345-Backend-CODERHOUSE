@@ -36,7 +36,7 @@ export const sendMail = async (email, token = null) => {
             };
             
             const response = await transporter.sendMail(emailOptions);
-            console.log("email enviado", response);
+            // console.log("email enviado", response);
             if (token !== null){
                 return token
             }
@@ -61,6 +61,44 @@ export const updatePassword = async (email, pass) => {
         }else{
             return false
         }
+    }catch(error){
+        throw new Error(error)
+    }
+}
+
+export const deletedByConnectionEmail = async (email) => {
+    try{
+        const subj = 'Account deleted'
+        const msg = 'Your account has been deleted by inactivity.'
+
+        const emailOptions = {
+            from: process.env.EMAIL,
+            to: email,
+            subject: subj,
+            html: msg
+        };
+
+        const response = await transporter.sendMail(emailOptions);
+        // console.log("email enviado", response);
+    }catch(error){
+        throw new Error(error)
+    }
+}
+
+export const deletedProductOwnerEmail = async (email) => {
+    try{
+        const subj = 'Product deleted'
+        const msg = 'A product you created was deleted.'
+
+        const emailOptions = {
+            from: process.env.EMAIL,
+            to: email,
+            subject: subj,
+            html: msg
+        };
+
+        const response = await transporter.sendMail(emailOptions);
+        console.log("email enviado", response);
     }catch(error){
         throw new Error(error)
     }

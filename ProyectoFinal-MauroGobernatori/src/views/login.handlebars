@@ -1,14 +1,20 @@
-<h1>Login</h1>
-<form action='./users/login' method='post'>
+<form action='./users/login' method='post' class="form_login">
+  <h1>Login</h1>
   Email: <input type='email' name='email' id='email' />
   Password: <input type='password' name='password' id='password' />
   <input type='submit' value='Login' />
+  <div class="a">
+    <a href="./reset-password" class="button_a">Reset Password</a>
+  </div>
 </form>
 
-<h1>Login with GitHub</h1>
-<a href="./users/register-github">Login with GitHub</a>
+<div class="center_div">
+  <h2>Login with GitHub</h2>
+  <a href="./users/register-github" class="button_a">Login with GitHub</a>
+</div>
 
-<h2>Registration for a new user.</h2>
-<button onclick="location.href='./register'">Go to registration</button>
-
-<button><a href="./reset-password">Reset Password</a></button>
+<div class="center_div">
+  <h2>Registration for a new user.</h2>
+  <a href="./register" class="button_a">Go to registration</a>
+  
+</div>

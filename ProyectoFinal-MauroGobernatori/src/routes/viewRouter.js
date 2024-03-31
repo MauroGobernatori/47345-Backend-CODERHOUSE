@@ -13,10 +13,11 @@ import {
     productsMock,
     reset_password,
     new_password,
-    admin_user_panel
+    admin_user_panel,
+    create_product
 } from '../controllers/viewController.js';
 import { isAuth } from '../middlewares/isAuth.js';
-import { authRoleAdmin } from '../middlewares/authRole.js';
+import { authRoleAdmin, authRoleAdminPremium } from '../middlewares/authRole.js';
 
 import { developmentLogger, productionLogger } from '../utils.js';
 
@@ -32,6 +33,8 @@ router.get('/logout', logout);
 router.get('/product_list', isAuth, products);
 router.get('/product_update/:id', isAuth, productUpdate);
 router.get('/purchase/:tid', isAuth, purchase);
+
+router.get('/create_product', authRoleAdminPremium, create_product)
 
 router.get('/reset-password', reset_password);
 router.get('/new-pass', new_password);

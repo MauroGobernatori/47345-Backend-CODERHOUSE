@@ -1,9 +1,12 @@
-async function deleteMethod(id){
+async function deleteMethod(id, owner = null){
     await fetch(`../products/delete/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({
+            owner: owner
+        })
     })
     .then(response => {
         window.location = response.url;

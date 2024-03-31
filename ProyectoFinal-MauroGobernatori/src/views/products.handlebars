@@ -1,33 +1,3 @@
-{{#if admin }}
-<div>Add new Product</div>
-<form action="/products/create" method="post">
-    <label for="name">Name</label>
-    <input type="text" name="name">
-    <label for="description">Description</label>
-    <input type="text" name="description">
-    <label for="price">Price</label>
-    <input type="number" name="price" step=".01">
-    <label for="stock">Stock</label>
-    <input type="number" name="stock">
-    <input type="submit" value="Create Product">
-</form>
-{{/if}}
-
-{{#if premium }}
-<form action="/products/create" method="post" class="form_create_product">
-    <h3>Add new Product</h3>
-    <label for="name">Name</label>
-    <input type="text" name="name">
-    <label for="description">Description</label>
-    <input type="text" name="description">
-    <label for="price">Price</label>
-    <input type="number" name="price" step=".01">
-    <label for="stock">Stock</label>
-    <input type="number" name="stock">
-    <input type="submit" value="Create Product">
-</form>
-{{/if}}
-
 <table class="table_products">
     <thead>
         <th>Name</th>
@@ -56,7 +26,7 @@
                 <button onclick="addItemPut('{{../cart}}', '{{this._id}}')">Add to Cart</button>
                 {{#if (equals this.owner ../_id)}}
                 <button><a href="/product_update/{{this._id}}">Update</a></button>
-                <button onclick="deleteMethod('{{this._id}}')">Delete</button>
+                <button onclick="deleteMethod('{{this._id}}', '{{this.owner}}')">Delete</button>
                 {{/if}}
             </td>
             {{/if}}
@@ -65,12 +35,11 @@
     </tbody>
 </table>
 
-{{#unless admin}}
-<form action="/cart/{{cart}}/purchase" method="POST">
-    <button type="submit">Buy</button>
-</form>
-{{/unless}}
-<button><a href="/profile">Go to Profile</a></button>
+
+<div class="products_a_div">
+    <a href="/profile" class="products_a">Go to Profile</a>
+</div>
+
 
 {{#unless admin}}
 {{#if fullCart}}
@@ -103,5 +72,11 @@
         {{/each}}
     </tbody>
 </table>
+
+{{#unless admin}}
+<form action="/cart/{{cart}}/purchase" method="POST">
+    <button type="submit">Buy</button>
+</form>
+{{/unless}}
 {{/if}}
 {{/unless}}

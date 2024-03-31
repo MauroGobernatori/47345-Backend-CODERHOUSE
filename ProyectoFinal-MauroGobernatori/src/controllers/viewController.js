@@ -18,9 +18,11 @@ export const errorLogin = (req, res) => {
 
 export const profile = (req, res) => {
     if(req.user.role == 'admin'){
-        res.render('profile', { ...req.user, admin: true });
+        res.render('profile', { ...req.user, admin: true, premium: false });
+    }else if(req.user.role == 'premium'){
+        res.render('profile', { ...req.user, admin: false, premium: true });
     }else{
-        res.render('profile', { ...req.user, admin: false });
+        res.render('profile', { ...req.user, admin: false, premium: false });
     }
 };
 
@@ -75,4 +77,8 @@ export const new_password = async (req, res) => {
 export const admin_user_panel = async (req, res) => {
     const users = await viewService.getAllUsers();
     res.render('admin_user_panel', {users: users});
+}
+
+export const create_product = async (req, res) => {
+    res.render('create_product');
 }

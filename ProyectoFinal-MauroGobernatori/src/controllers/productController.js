@@ -15,7 +15,7 @@ export default class ProductController{
             const newProduct = await productService.createProduct(prod, _id, role);
             if(newProduct){
                 req.logger.debug(`Product created successfully. ${newProduct}`);
-                res.redirect('/product_list');
+                res.redirect('/create_product');
             }else{
                 req.logger.error('Product creation error!');
                 return httpResponse.NotFound(res, errorsDictionary.ERROR_CREATE_PRODUCT);

@@ -1,22 +1,34 @@
-<h1>Profile</h1>
+<div class="profile">
 
-{{#if isGithub }}
-<div>Connected with Github!</div>
-{{/if}}
+  <div class="information">
+    <h1>Profile</h1>
 
-<div>Welcome {{{ first_name }}}!</div>
-<div>Role: {{{role}}}</div>
+    {{#if isGithub }}
+    <div>Connected with Github!</div>
+    {{/if}}
 
-<button><a href="/product_list">Go to Products</a></button>
+    <div>Welcome {{{ first_name }}}!</div>
+    <div>Role: {{{role}}}</div>
+  </div>
 
-{{#unless admin}}
-<button><a href='/users/premium/{{{_id}}}'>Change role</a></button>
-{{/unless}}
+  <div class="buttons">
+    <a href="/product_list">Go to Products</a>
 
-{{#if admin}}
-<button><a href="/admin_panel">Users Manager</a></button>
-{{/if}}
+    {{#unless admin}}
+    <a href='/users/premium/{{{_id}}}'>Change role</a>
+    {{/unless}}
 
-<form action='./users/logout' method='post'>
-  <input type='submit' value='Logout' />
-</form>
+    {{#if premium}}
+    <a href="/create_product">Go to Product Creation</a>
+    {{/if}}
+
+    {{#if admin}}
+    <a href="/create_product">Go to Product Creation</a>
+    <a href="/admin_panel">Users Manager</a>
+    {{/if}}
+  </div>
+
+  <form action='./users/logout' method='post' class="form_logout">
+    <input type='submit' value='Logout' />
+  </form>
+</div>

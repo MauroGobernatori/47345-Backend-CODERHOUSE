@@ -4,6 +4,9 @@ const productDao = new ProductDao();
 import ProductRepository from '../repository/productRepository.js';
 const productRepository = new ProductRepository();
 
+import { userService } from './userService.js';
+import { deletedProductOwnerEmail } from './emailService.js';
+
 class ProductService{
     async getAll(){
         try{
@@ -53,11 +56,24 @@ class ProductService{
         }
     }
 
-    async deleteProduct(id){
+    async deleteProduct(pid){
         try{
-            const deletedProduct = await productDao.deleteProduct(id);
-            if(deletedProduct){
-                return deletedProduct
+            const product = await this.getById(pid);
+            if(product){
+                const deletedProduct = await productDao.deleteProduct(pid);
+                if(deletedProduct){
+                    if(product.owner != 'admin'){
+                        const user = await userService.getById(product.owner);
+                        if(user){
+                            //Send email to owner of product deleted
+                            // console.log(user.email);
+                            const response = await deletedProductOwnerEmail(user.email);
+                        }
+                    }
+                    return deletedProduct
+                }else{
+                    return false
+                }
             }else{
                 return false
             }

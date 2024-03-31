@@ -5,7 +5,7 @@ import UserRepository from '../repository/userRepository.js';
 const userRepository = new UserRepository();
 
 import { cartService } from './cartService.js';
-import { sendMail } from './emailService.js';
+import { deletedByConnectionEmail } from './emailService.js';
 
 class UserService{
     async getAllUsers(){
@@ -178,7 +178,10 @@ class UserService{
                 }
                 const deleteUsers = await userDao.deleteByConnection(userIds);
                 if(deleteUsers){
-                    // Send Email
+                    // Sends the email of account deleted
+                    for(const email of userEmails){
+                        const emailSended = await deletedByConnectionEmail(email);
+                    }
                     return deleteUsers
                 }else{
                     return false
